@@ -8,12 +8,10 @@ use Composer\Package\Version\VersionParser;
 
 class Package extends CompletePackage {
 
-	public function __construct( $name, $version, $prettyVersion = null ) {
+	public function __construct( $name, $version ) {
 		$versionParser = new VersionParser();
-		if ( null === $prettyVersion ) {
-			$prettyVersion = $version;
-			$version       = $versionParser->normalize( $version );
-		}
+		$prettyVersion = $version;
+		$version       = $versionParser->normalize( $version );
 
 		parent::__construct( $name, $version, $prettyVersion );
 

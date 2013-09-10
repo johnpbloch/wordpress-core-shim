@@ -5,7 +5,6 @@ namespace johnpbloch\Composer\WordPress\Shim;
 use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
-use Composer\Repository\ArrayRepository;
 
 class Plugin implements PluginInterface {
 
@@ -68,8 +67,16 @@ class Plugin implements PluginInterface {
 				$version
 			);
 		}
-		$repository = new ArrayRepository( $WordPressPackages );
-		$composer->getRepositoryManager()->addRepository( $repository );
+		$composer->getRepositoryManager()->setRepositoryClass(
+			'wordpress-core',
+			__NAMESPACE__ . '\\Repository'
+		);
+		$composer->getRepositoryManager()->addRepository(
+			$composer->getRepositoryManager()->createRepository(
+				'wordpress-core',
+				$WordPressPackages
+			)
+		);
 	}
 
 }
