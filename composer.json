@@ -1,0 +1,27 @@
+{
+	"name"             : "johnpbloch/wordpress-core-shim",
+	"description"      : "A Composer plugin to create virtual packages for WordPress core",
+	"type"             : "composer-plugin",
+	"license"          : "GPL-2.0+",
+	"minimum-stability": "dev",
+	"authors"          : [
+		{
+			"name" : "John P. Bloch",
+			"email": "me@johnpbloch.com"
+		}
+	],
+	"autoload"         : {
+		"psr-0": {
+			"johnpbloch\\Composer\\WordPress\\Shim\\": "src/"
+		}
+	},
+	"extra"            : {
+		"class": "johnpbloch\\Composer\\WordPress\\Shim\\Plugin"
+	},
+	"require"          : {
+		"composer-plugin-api": "1.0.0"
+	},
+	"require-dev"      : {
+		"composer/composer": "1.0.*@dev"
+	}
+}
