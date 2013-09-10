@@ -8,16 +8,6 @@ use Composer\Plugin\PluginInterface;
 
 class Plugin implements PluginInterface {
 
-	/** @var  Versions */
-	private static $_versions;
-
-	public static function get_versions() {
-		if ( ! self::$_versions ) {
-			self::$_versions = new Versions();
-		}
-		return self::$_versions;
-	}
-
 	/**
 	 * Apply plugin modifications to composer
 	 *
