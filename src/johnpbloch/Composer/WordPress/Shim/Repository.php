@@ -20,7 +20,7 @@ class Repository extends ArrayRepository {
 	}
 
 	public function findPackages( $name, $version = null ) {
-		
+		$this->io->write( sprintf( 'Finding package $s...', $name ) );
 		parent::findPackages( $name, $version );
 	}
 
