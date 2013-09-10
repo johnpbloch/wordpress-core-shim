@@ -93,7 +93,8 @@ class Plugin implements PluginInterface {
 		} elseif ( 'dev-master' === $version || '*@dev' === $version ) {
 			$config['source']['reference'] = 'trunk/';
 		} else {
-			$config['source']['reference'] = "branches/$version/";
+			$cleanVersion                  = str_replace( '.*-dev', '', $version );
+			$config['source']['reference'] = "branches/$cleanVersion/";
 		}
 
 		if ( ! $is_dev ) {
