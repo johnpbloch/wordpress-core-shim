@@ -28,6 +28,14 @@ You can also declare it as a dependency directly in your main package, but be aw
 
 WordPress Core Shim provides all versions from 3.0 on. That includes branches ("N.N.*-dev" format) and trunk (dev-master).
 
+### Future WordPress Releases
+
+After future WordPress versions are released, if you are using the global package, you will need to run
+
+```
+composer global update
+```
+
 ### License
 
 GPL v2+
