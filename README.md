@@ -15,8 +15,10 @@ This will ensure that it is loaded when you need to use it for any local repo. P
 Once you have it installed, simply require the `wordpress-core` package:
 
 ```json
-"require": {
-  "wordpress-core": "~3.6"
+{
+  "require": {
+    "wordpress-core": "~3.6"
+  }
 }
 ```
 
