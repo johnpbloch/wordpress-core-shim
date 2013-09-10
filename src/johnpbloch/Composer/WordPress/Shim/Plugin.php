@@ -86,7 +86,7 @@ class Plugin implements PluginInterface {
 			),
 		);
 
-		$is_dev = ( false === strpos( $version, 'dev' ) );
+		$is_dev = ( false !== strpos( $version, 'dev' ) );
 
 		if ( ! $is_dev ) {
 			$config['source']['reference'] = "tags/$version/";
