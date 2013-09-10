@@ -74,6 +74,7 @@ class Plugin implements PluginInterface {
 		$config = array(
 			'name'              => 'wordpress-core',
 			'type'              => 'wordpress-core',
+			'version'           => $version,
 			'license'           => 'GPL-2+',
 			'require'           => array(
 				'johnpbloch/wordpress-core-installer' => '~0.2'
