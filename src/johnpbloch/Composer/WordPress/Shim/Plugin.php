@@ -25,58 +25,82 @@ class Plugin implements PluginInterface {
 	 * @param IOInterface $io
 	 */
 	public function activate( Composer $composer, IOInterface $io ) {
-		$WordPressPackages = array();
-		$versions          = array(
-			'3.0',
-			'3.0.1',
-			'3.0.2',
-			'3.0.3',
-			'3.0.4',
-			'3.0.5',
-			'3.0.6',
-			'3.0.*-dev',
-			'3.1',
-			'3.1.1',
-			'3.1.2',
-			'3.1.3',
-			'3.1.4',
-			'3.1.*-dev',
-			'3.2',
-			'3.2.1',
-			'3.2.*-dev',
-			'3.3',
-			'3.3.1',
-			'3.3.2',
-			'3.3.3',
-			'3.3.*-dev',
-			'3.4',
-			'3.4.1',
-			'3.4.2',
-			'3.4.*-dev',
-			'3.5',
-			'3.5.1',
-			'3.5.2',
-			'3.5.*-dev',
-			'3.6',
-			'3.6.*-dev',
-			'dev-master',
-		);
-		foreach ( $versions as $version ) {
-			$WordPressPackages[] = new Package(
-				'wordpress-core',
-				$version
-			);
-		}
-		$composer->getRepositoryManager()->setRepositoryClass(
-			'wordpress-core',
-			__NAMESPACE__ . '\\Repository'
+		$WordPressPackages = array(
+			$this->getPackageConfig( '3.0' ),
+			$this->getPackageConfig( '3.0.1' ),
+			$this->getPackageConfig( '3.0.2' ),
+			$this->getPackageConfig( '3.0.3' ),
+			$this->getPackageConfig( '3.0.4' ),
+			$this->getPackageConfig( '3.0.5' ),
+			$this->getPackageConfig( '3.0.6' ),
+			$this->getPackageConfig( '3.0.*-dev' ),
+			$this->getPackageConfig( '3.1' ),
+			$this->getPackageConfig( '3.1.1' ),
+			$this->getPackageConfig( '3.1.2' ),
+			$this->getPackageConfig( '3.1.3' ),
+			$this->getPackageConfig( '3.1.4' ),
+			$this->getPackageConfig( '3.1.*-dev' ),
+			$this->getPackageConfig( '3.2' ),
+			$this->getPackageConfig( '3.2.1' ),
+			$this->getPackageConfig( '3.2.*-dev' ),
+			$this->getPackageConfig( '3.3' ),
+			$this->getPackageConfig( '3.3.1' ),
+			$this->getPackageConfig( '3.3.2' ),
+			$this->getPackageConfig( '3.3.3' ),
+			$this->getPackageConfig( '3.3.*-dev' ),
+			$this->getPackageConfig( '3.4' ),
+			$this->getPackageConfig( '3.4.1' ),
+			$this->getPackageConfig( '3.4.2' ),
+			$this->getPackageConfig( '3.4.*-dev' ),
+			$this->getPackageConfig( '3.5' ),
+			$this->getPackageConfig( '3.5.1' ),
+			$this->getPackageConfig( '3.5.2' ),
+			$this->getPackageConfig( '3.5.*-dev' ),
+			$this->getPackageConfig( '3.6' ),
+			$this->getPackageConfig( '3.6.*-dev' ),
+			$this->getPackageConfig( 'dev-master' ),
 		);
 		$composer->getRepositoryManager()->addRepository(
 			$composer->getRepositoryManager()->createRepository(
-				'wordpress-core',
+				'package',
 				$WordPressPackages
 			)
 		);
+	}
+
+	private function getPackageConfig( $version ) {
+		$config = array(
+			'name'              => 'wordpress-core',
+			'type'              => 'wordpress-core',
+			'license'           => 'GPL-2+',
+			'require'           => array(
+				'johnpbloch/wordpress-core-installer' => '~0.2'
+			),
+			'minimum-stability' => 'dev',
+			'source'            => array(
+				'type' => 'svn',
+				'url'  => 'http://core.svn.wordpress.org/',
+			),
+		);
+
+		$is_dev = ( false === strpos( $version, 'dev' ) );
+
+		if ( ! $is_dev ) {
+			$config['source']['reference'] = "tags/$version/";
+		} elseif ( 'dev-master' === $version || '*@dev' === $version ) {
+			$config['source']['reference'] = 'trunk/';
+		} else {
+			$config['source']['reference'] = "branches/$version/";
+		}
+
+		if ( ! $is_dev ) {
+			$config['dist'] = array(
+				'type' => 'zip',
+				'url'  => "http://wordpress.org/wordpress-$version.zip",
+			);
+		}
+
+		return $config;
 	}
 
 }
