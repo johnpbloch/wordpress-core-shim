@@ -153,6 +153,7 @@ class Repository implements RepositoryInterface {
 		}
 		$config  = $this->getPackageConfig( $version );
 		$package = $this->getLoader()->load( $config );
+		$package->setRepository( $this );
 		return $package;
 	}
 
