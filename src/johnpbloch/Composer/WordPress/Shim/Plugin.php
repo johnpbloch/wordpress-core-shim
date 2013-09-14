@@ -48,6 +48,7 @@ class Plugin implements PluginInterface {
 				$this->getPackageConfig( '3.5.2' ),
 				$this->getPackageConfig( '3.5.*-dev' ),
 				$this->getPackageConfig( '3.6' ),
+				$this->getPackageConfig( '3.6.1' ),
 				$this->getPackageConfig( '3.6.*-dev' ),
 				$this->getPackageConfig( 'dev-master' ),
 			)
