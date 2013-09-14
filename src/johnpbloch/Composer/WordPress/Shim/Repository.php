@@ -108,6 +108,7 @@ class Repository implements RepositoryInterface {
 			$packages[] = $this->getPackage( $version );
 		}
 		$packages[] = $this->getPackage( 'trunk' );
+		return $packages;
 	}
 
 	/**
