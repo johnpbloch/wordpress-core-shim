@@ -257,7 +257,7 @@ class Repository implements RepositoryInterface {
 	 * @return array
 	 */
 	protected function getVersions() {
-		if ( $this->versions !== null ) {
+		if ( $this->versions ) {
 			return $this->versions;
 		}
 		$this->cache->gc(
@@ -265,7 +265,7 @@ class Repository implements RepositoryInterface {
 			$this->config->get( 'cache-files-maxsize' )
 		);
 		$this->versions = json_decode( $this->cache->read( 'versions.json' ), true );
-		if ( ! $this->versions ) {
+		if ( empty( $this->versions ) || ! is_array( $this->versions ) ) {
 			$fs   = new RemoteFilesystem( $this->io );
 			$data = $fs->getContents(
 				'core.svn.wordpress.org',
